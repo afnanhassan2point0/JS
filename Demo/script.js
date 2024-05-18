@@ -91,26 +91,45 @@
 
 
 
-// CALLBACKS HELL
+// CALLBACKS HELL :: 1
 // WORKING WITH API's
 // ADVANCED JAVASCRIPT
 //
-function getData(dataID, nextData) { // defined a function, working for callbacks hell
-    setTimeout(() => {
-        console.log("hello ", dataID);
-        if (nextData) {
-            nextData();
-        }
-        else {
-            console.log("finished");
-        }
-    }, 2000);
-}
+// function getData(dataID, nextData) { // defined a function, working for callbacks hell
+//     setTimeout(() => {
+//         console.log("hello ", dataID);
+//         if (nextData) {
+//             nextData();
+//         }
+//         else {
+//             console.log("finished");
+//         }
+//     }, 2000);
+// }
 
-getData(222, () => {
-    getData(333, () => {
-        getData(444, () => {
-            getData(234);
-        });
+// getData(222, () => {
+//     getData(333, () => {
+//         getData(444, () => {
+//             getData(234);
+//         });
+//     });
+// });
+
+
+
+// PROMISE METHOD :: 2
+
+function getData(exeData, nextData) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Data is :: ", exeData);
+            resolve("SeCcEcS");
+            if (nextData) {
+                nextData();
+            }
+            else {
+                console.log("Program ends here!");
+            }
+        }, 3000);
     });
-});
+}
