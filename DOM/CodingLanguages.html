@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D O M</title>
+    <style>
+        body {
+            background-color: black;
+            color: greenyellow;
+            font-size: 2rem;
+        }
+
+        li {
+            list-style: square;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="codingLanguages">
+        <li>JavaScript</li>
+    </ul>
+</body>
+<script>
+    addLanguage("Python");
+    addLanguage("CSharp");
+    addLanguage("Java");
+    addLanguage("Cpp");
+    addLanguage("C");
+    createLanguage("Mojo");
+    createLanguage("Ruby");
+    createLanguage("Rust");
+    document.querySelector('li:last-child').remove(); // to delete the last option ft. "Rust"
+    // user-defined methods ()
+    // Method 01 : not much efficient
+    function addLanguage(userInput) {
+        const li = document.createElement('li');
+        li.innerHTML = `${userInput}`;
+        document.querySelector('.codingLanguages').appendChild(li);
+    }
+    // Method 02 : efficient
+    function createLanguage(userInput) {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(userInput));
+        document.querySelector('.codingLanguages').appendChild(li);
+    }
+</script>
+
+</html>
