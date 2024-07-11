@@ -15,13 +15,13 @@
         body {
             background-color: black;
             font-family: 'Franklin Gothic Medium';
-            color: #9b5b5b;
+            color: #a5f1ca;
         }
 
         nav {
             font-size: 1.2rem;
             text-align: center;
-            background-color: #519251;
+            background-color: #7ac59e;
             padding: 12px;
             color: black;
             text-transform: uppercase;
@@ -43,8 +43,14 @@
             margin: 7px;
         }
 
+        #msg {
+            font-weight: 600;
+            font-family: poppins;
+            display: none;
+        }
+
         #wrapper {
-            height: 100vh;
+            height: 90vh;
         }
 
         #formMaking {
@@ -58,8 +64,6 @@
 
         #formMaking input {
             width: 100%;
-            padding: 6px;
-            font-size: 1.2rem;
             text-align: center;
             border: none;
             outline: none;
@@ -67,9 +71,20 @@
             border-radius: 60px;
         }
 
+        #guessField {
+            color: green;
+            background-color: #c5c5c5;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            padding: 3px;
+        }
+
         #subt {
             background-color: #363434;
-            color: white;
+            color: #a5f1ca;
+            font-size: 1.2rem;
+            padding: 10px;
         }
 
         #subt:hover {
@@ -98,20 +113,88 @@
     <div id="wrapper" class="flex">
         <p>Try & Guess a random number ranging ( 1 ~ 100 )</p>
         <p>You are given total of TEN attempts to Guess Match</p>
+        <p id="msg"></p> <!-- error messages or instructions will be given here -->
 
         <form class="flex form" id="formMaking">
             <label for="guessField" id="guess">Guess Number</label>
             <input type="text" id="guessField" class="guessField">
-            <input type="submit" id="subt" value="Check Guess">
+            <input type="submit" id="subt" value="Check Guess" class="guessSubmit">
         </form>
 
         <div class="resultParas">
             <p>Previous Guesses : <span class="guesses"></span></p>
             <p>Guesses Remaining : <span class="lastResult">10</span></p>
-            <p class="lowOrHigh"></p>
         </div>
     </div>
 
 </body>
+<script>
+    const randomNumber = parseInt(Math.random() * 100 + 1); // generates a random number that will be used against User Guess
+    // taking all the document objects to manipulate with
+    const userInput = document.querySelector('.guessField');
+    const submit = document.querySelector('#subt');
+    const guessSlot = document.querySelector('.guesses');
+    const remainingGuess = document.querySelector('.lastResult');
+    const msgParagraph = document.querySelector('#msg');
+    // global variables
+    let currentGuess = 1; // keep track of guess's limit
+    let playGame = true; // controls game-play
+
+    // the main Actions applies here ::
+    submit.addEventListener('click', (e) => {
+        e.preventDefault(); // to stop back-end procedures on forms
+        const guess = parseInt(userInput.value);
+        if (guess < 1 || guess > 100 || isNaN(guess)) {
+            displayParagraph('Please enter a valid number in Guess', 'block', '#c45a5a'); // message, display property, color of text
+            userInput.style.color = 'red';
+        }
+        else {
+            displayParagraph('', 'none', '');
+            userInput.style.color = 'green';
+            checkGuess(guess);
+        }
+
+        if (currentGuess > 10) {
+            userInput.setAttribute('disabled', ''); // DOESN'T ALLOW INPUTS
+            userInput.style.backgroundColor = '#c45a5a';
+            userInput.style.color = 'white';
+            submit.value = 'Your Reached Guess Limit!';
+            submit.style.cursor = 'not-allowed';
+            submit.disabled = true;
+            displayParagraph(`OOPS! The Guess was : ${randomNumber}`, 'block', 'red');
+        }
+    });
+
+    // user defined functions
+    function checkGuess(guess) {
+        if (guess == randomNumber) {
+            userInput.style.backgroundColor = 'green';
+            userInput.style.color = 'white';
+            userInput.readOnly = true; // DOESN'T ALLOW FURTHER INPUTS
+            submit.value = 'Refresh this page to start again';
+            submit.style.cursor = 'not-allowed';
+            submit.disabled = true;
+            displayParagraph(`Congrats! You caught the Right Exact Guess : ${randomNumber}`, 'block', 'green'); // message, display property, color of text
+        }
+        else {
+            if (guess > randomNumber) {
+                displayParagraph('Nope! You should Guess Smaller', 'block', 'brown');
+            }
+            else if (guess < randomNumber) {
+                displayParagraph('Nope! You should Guess Greater', 'block', 'orange');
+            }
+        }
+        guessSlot.innerHTML += `${guess},`; // adding inputs to the slot
+        remainingGuess.innerHTML = `${10 - currentGuess}`;
+        currentGuess++; // goes for next guess
+    }
+
+    // this method display the msgParagraph '#msg' from HTML document
+    function displayParagraph(message, property, textColor) {
+        msgParagraph.style.display = `${property}`;
+        msgParagraph.innerText = `${message}`;
+        msgParagraph.style.color = `${textColor}`;
+    }
+</script>
 
 </html>
