@@ -50,3 +50,33 @@ function mainFunc(anyFunc, msg) {
 }
 
 mainFunc(greet, "Afnan");
+
+//
+// QUE : palindromic string checking
+const anyString = "a e i o u o i e a"; // answer should be palindromic
+let palindromic = true;
+
+for (let i = 0; i < anyString.length / 2; i++) {
+    if (anyString[i] != anyString[anyString.length - 1 - i]) {
+        palindromic = false;
+    }
+}
+if (palindromic) {
+    console.log("\nYes! Palindromic\n");
+}
+else
+    console.log("\nNO! Not Palindromic\n");
+
+//
+// QUE : printing Fibonacci series
+const n = 10; // first n terms of fibonacci numbers
+let f = 0;
+let l = 1;
+let output = "";
+for (let i = 0; i < n; i++) {
+    const s = f + l;
+    output += f + " , "; // for printing in the same line
+    f = l;
+    l = s;
+}
+console.log(output);
