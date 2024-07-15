@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Fake</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #414141;
+        font-family: poppins;
+        font-size: 1.3rem;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 32px;
+    }
+
+    #imagesList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        margin-top: 5rem;
+    }
+
+    #imagesList img {
+        border-radius: 12px;
+        margin: 10px;
+    }
+
+    #imagesList img:hover {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <h2>Click a Photo to see what happens</h2>
+    <ul id="imagesList">
+        <li><img src="img1.jpeg" alt="BenChildTeam" width="256px" id="img1" class="images"></li>
+        <li><img src="img2.png" alt="BenMoodON" width="256px" id="img2" class="images"></li>
+        <li><img src="img3.png" alt="BenIsSad" width="256px" id="img3" class="images"></li>
+        <li><img src="img4.webp" alt="BenIsShocked" width="256px" id="img4" class="images"></li>
+    </ul>
+</body>
+
+<script>
+    document.querySelector('#imagesList').addEventListener('click', (e) => {
+        const clickedItem = e.target.parentNode;
+        if (e.target.tagName === 'IMG')
+            clickedItem.remove();
+    });
+</script>
+
+</html>
