@@ -64,7 +64,9 @@
     };
     // changing the background color on demand
     const changeBgColor = function () {
-        timeIntervalFunction = setInterval(applyColor, 1000);
+        if (!timeIntervalFunction) {
+            timeIntervalFunction = setInterval(applyColor, 1000);
+        }
         function applyColor() {
             document.body.style.backgroundColor = randomHexValue();
             heading.style.color = randomHexValue(randomHexValue());
