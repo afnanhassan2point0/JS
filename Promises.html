@@ -1,0 +1,46 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: #333;">
+
+</body>
+
+<script>
+    function getData(dataID, nextData) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log("data driven for : ", dataID);
+                resolve('success');
+                reject('error occurred');
+                if (nextData)
+                    nextData();
+            }, 3000);
+            console.log(`Fetching for ${dataID}`);
+        });
+    }
+
+    getData(1122).then((res) => {
+        return getData('Murli Dharam');
+    })
+        .then((res) => {
+            return getData("Afnanirshad");
+        })
+        .then((res) => {
+            return getData(786, () => {
+                console.log("I am so disgusting, yeah? Alright!!");
+            });
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+</script>
+
+</html>
